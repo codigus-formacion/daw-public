@@ -870,6 +870,9 @@ ul.nav-tabs {
     "description" : {
       "type" : "string"
     },
+    "image" : {
+      "$ref" : "#/components/schemas/ImageDTO"
+    },
     "shops" : {
       "type" : "array",
       "items" : {
@@ -1079,6 +1082,9 @@ ul.nav-tabs {
  -H "Content-Type: application/json" \
  "https://localhost:8443/api/books/" \
  -d '{
+  &quot;image&quot; : {
+    &quot;id&quot; : 6
+  },
   &quot;shops&quot; : [ {
     &quot;address&quot; : &quot;address&quot;,
     &quot;name&quot; : &quot;name&quot;,
@@ -3750,6 +3756,9 @@ pub fn main() {
  -H "Content-Type: application/json" \
  "https://localhost:8443/api/books/{id}" \
  -d '{
+  &quot;image&quot; : {
+    &quot;id&quot; : 6
+  },
   &quot;shops&quot; : [ {
     &quot;address&quot; : &quot;address&quot;,
     &quot;name&quot; : &quot;name&quot;,

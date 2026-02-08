@@ -30,3 +30,7 @@ target
 hs_err_pid*
 .idea/
 .vscode/
+
+# OpenAPI Generator ignore file
+.openapi-generator/
+.openapi-generator-ignore

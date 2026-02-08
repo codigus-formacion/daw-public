@@ -3,12 +3,12 @@
 Ejemplo que contiene algunas de las funcionalidades solicitadas en la Prática 1 del proyecto, en concreto:
 
 * Aplicación web implementada con Spring MVC y templates Mustache.
-* Base de datos MySQL
-* Persistencia de imágenes en la base de datos 
-* Carga de imágenes en los datos de ejemplo
-* Posibilidad de editar las imágenes asociadas a los libros
-* Roles de usuarios con diferentes funcionalidades
-* Seguridad con https
+* Base de datos MySQL.
+* Persistencia de imágenes en la base de datos.
+* Carga de imágenes en los datos de ejemplo.
+* Posibilidad de editar las imágenes asociadas a los libros.
+* Roles de usuarios con diferentes funcionalidades.
+* Seguridad con https.
 
 Por defecto el proyecto require una base de datos MySQL disponible en localhost con la siguiente configuración:
 * Esquema: `books`

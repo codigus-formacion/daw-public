@@ -52,3 +52,7 @@ Para generar la documentación con OpenAPI usa el comando:
 ```sh
 mvn verify -Djavax.net.ssl.trustStore=src/main/resources/keystore.jks -Djavax.net.ssl.trustStorePassword=password
 ```
+
+[OpenAPI Specification](https://rawcdn.githack.com/codigus-formacion/daw-public/refs/heads/master/ejemplo-practica2/api-docs/api-docs.yaml)
+
+[HTML view of the documentation](https://rawcdn.githack.com/codigus-formacion/daw-public/refs/heads/master/ejemplo-practica2/api-docs/api-docs.html)

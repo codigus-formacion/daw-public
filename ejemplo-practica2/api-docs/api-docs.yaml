@@ -432,6 +432,8 @@ components:
           type: string
         description:
           type: string
+        image:
+          $ref: "#/components/schemas/ImageDTO"
         shops:
           type: array
           items:
