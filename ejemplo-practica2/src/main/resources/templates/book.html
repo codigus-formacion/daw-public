@@ -28,7 +28,10 @@
         {{#logged}}
         <div class="btn-group">
             {{#admin}}
-            <a href="/removebook/{{book.id}}" class="btn btn-danger">Remove</a>
+            <form action="/removebook/{{book.id}}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Remove</button>
+                <input type="hidden" name="_csrf" value="{{token}}" />
+            </form>
             {{/admin}}
 
             <a href="/editbook/{{book.id}}" class="btn btn-warning">Edit</a>
