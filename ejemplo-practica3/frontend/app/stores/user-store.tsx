@@ -1,0 +1,60 @@
+import { create } from "zustand";
+
+import type { UserDTO } from "~/dtos/UserDTO";
+import { HttpError, logIn, logOut, reqIsLogged } from "~/services/login-service";
+
+interface UserState {
+  user: UserDTO | null;
+  loginError: string | null;
+  loadLoggedUser: () => Promise<void>;
+  loginUser: (username: string, password: string) => Promise<string | null>;
+  logoutUser: () => Promise<void>;
+}
+
+export const useUserState = create<UserState>((set, get) => ({
+  user: null,
+  loginError: null,
+
+  loadLoggedUser: async () => {
+    set({ user: null, loginError: null });
+
+    try {
+      const user = await reqIsLogged();
+      set({ user });
+    } catch (error) {
+      if (error instanceof HttpError && error.status === 401) {
+        set({ user: null, loginError: null });
+        return;
+      }
+
+      console.log(error);
+      set({ loginError: "Failed to load logged-in user" });
+    }
+  },
+
+  loginUser: async (username: string, password: string) => {
+    set({ user: null, loginError: null });
+
+    try {
+      await logIn(username, password);
+      await get().loadLoggedUser();
+      return null;
+    } catch (error) {
+      console.log(error);
+      const message = "Incorrect username or password. Please try again.";
+      set({ loginError: message });
+      return message;
+    }
+  },
+
+  logoutUser: async () => {
+    set({ user: null, loginError: null });
+
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+      set({ loginError: "Logout failed. Please try again." });
+    }
+  },
+}));
