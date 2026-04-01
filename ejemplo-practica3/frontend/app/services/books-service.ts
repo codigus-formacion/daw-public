@@ -52,13 +52,12 @@ export async function updateBook(
   id: string,
   title: string,
   description: string,
-  shops: { id: number }[] = [],
-  removeImage: boolean = false,
+  shops: { id: number }[] = []
 ): Promise<BookDTO> {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title, description, shops, removeImage }),
+    body: JSON.stringify({ title, description, shops }),
   });
 
   if (!response.ok) {

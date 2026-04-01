@@ -32,11 +32,11 @@ export default function BookEdit({ loaderData }: Route.ComponentProps) {
     const imageFile = formData.get("image") as File | null;
 
     try {
-      await updateBook(id, title, description, shops, removeImage);
+      await updateBook(id, title, description, shops);
 
-      if (imageFile && book.image) {
+      if (imageFile && imageFile.size > 0 && book.image) {
         await replaceImage(book.image.id, imageFile);
-      } else if (imageFile && !book.image) {
+      } else if (imageFile && imageFile.size > 0 && !book.image) {
         await uploadBookImage(Number(id), imageFile);
       } else if (removeImage && book.image) {
         await deleteBookImage(book.id, book.image.id);
