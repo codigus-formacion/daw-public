@@ -2,7 +2,13 @@ import { useNavigate } from "react-router";
 import { useActionState } from "react";
 import type { Route } from "./+types/book-edit";
 import BookForm from "~/components/book-form";
-import { getBook, updateBook } from "~/services/books-service";
+import {
+  deleteBookImage,
+  getBook,
+  replaceImage,
+  updateBook,
+  uploadBookImage,
+} from "~/services/books-service";
 import { getShops } from "~/services/shops-service";
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
@@ -22,9 +28,20 @@ export default function BookEdit({ loaderData }: Route.ComponentProps) {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const shops = formData.getAll("shops").map((id) => ({ id: Number(id) }));
+    const removeImage = formData.get("removeImage") === "on";
+    const imageFile = formData.get("image") as File | null;
 
     try {
-      await updateBook(id, title, description, shops);
+      await updateBook(id, title, description, shops, removeImage);
+
+      if (imageFile && book.image) {
+        await replaceImage(book.image.id, imageFile);
+      } else if (imageFile && !book.image) {
+        await uploadBookImage(Number(id), imageFile);
+      } else if (removeImage && book.image) {
+        await deleteBookImage(book.id, book.image.id);
+      }
+
       navigate(`/book/${book.id}`);
       return { success: true, error: null };
     } catch (error) {

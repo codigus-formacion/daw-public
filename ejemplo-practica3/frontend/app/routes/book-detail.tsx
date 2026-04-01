@@ -57,7 +57,7 @@ export default function BookDetail({ loaderData }: Route.ComponentProps) {
         <h2>Book "{book.title}"</h2>
 
         <Image
-          src={book.image ? `/api/images/${book.id}/media` : `/no_image.png`}
+          src={book.image ? `/api/images/${book.image.id}/media` : `/no_image.png`}
           className="mb-4"
           alt={book.image ? "Book Image" : "No Image Available"}
           fluid

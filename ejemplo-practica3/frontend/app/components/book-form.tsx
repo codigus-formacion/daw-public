@@ -1,4 +1,4 @@
-import { Form, Button, Container, Alert } from "react-bootstrap";
+import { Form, Button, Container, Alert, Image } from "react-bootstrap";
 import type BookDTO from "~/dtos/BookDTO";
 import type ShopBasicDTO from "~/dtos/ShopBasicDTO";
 
@@ -54,6 +54,38 @@ export default function BookForm({
             rows={4}
             defaultValue={book?.description || ""}
             required
+            disabled={isPending}
+          />
+        </Form.Group>
+
+        {isEditing && book?.image && (
+          <Form.Group className="mb-3">
+            <Form.Label>Current Image:</Form.Label>
+            <div className="mb-2">
+              <Image
+                src={`/api/images/${book.image.id}/media`}
+                thumbnail
+                style={{ maxHeight: "200px" }}
+              />
+            </div>
+            <Form.Check
+              type="checkbox"
+              id="removeImage"
+              name="removeImage"
+              label="Remove image"
+              disabled={isPending}
+            />
+          </Form.Group>
+        )}
+
+        <Form.Group className="mb-3" controlId="image">
+          <Form.Label>
+            {isEditing && book?.image ? "Update Image" : "Image"}
+          </Form.Label>
+          <Form.Control
+            type="file"
+            name="image"
+            accept=".jpg,.jpeg"
             disabled={isPending}
           />
         </Form.Group>

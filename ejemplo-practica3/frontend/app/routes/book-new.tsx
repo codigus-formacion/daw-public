@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useActionState } from "react";
 import type { Route } from "./+types/book-new";
 import BookForm from "~/components/book-form";
-import { addBook } from "~/services/books-service";
+import { addBook, uploadBookImage } from "~/services/books-service";
 import { getShops } from "~/services/shops-service";
 
 export async function clientLoader({}: Route.ClientLoaderArgs) {
@@ -25,9 +25,15 @@ export default function BookNew({ loaderData }: Route.ComponentProps) {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const shops = formData.getAll("shops").map((id) => ({ id: Number(id) }));
+    const imageFile = formData.get("image") as File | null;
 
     try {
       const newBook = await addBook(title, description, shops);
+
+      if (imageFile) {
+        await uploadBookImage(newBook.id, imageFile);
+      }
+
       navigate(`/book/${newBook.id}`);
       return { success: true, error: null, bookId: newBook.id };
     } catch (error) {
