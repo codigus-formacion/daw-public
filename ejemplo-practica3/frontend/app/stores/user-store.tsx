@@ -11,7 +11,7 @@ interface UserState {
   logoutUser: () => Promise<void>;
 }
 
-export const useUserState = create<UserState>((set, get) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   user: null,
   loginError: null,
 

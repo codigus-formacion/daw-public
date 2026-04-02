@@ -10,7 +10,7 @@ import {
   ListGroup,
   Modal,
 } from "react-bootstrap";
-import { useUserState } from "~/stores/user-store";
+import { useUserStore } from "~/stores/user-store";
 import { useState } from "react";
 
 export async function clientLoader({ params }: Route.ClientLoaderArgs) {
@@ -18,7 +18,7 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
 }
 
 export default function BookDetail({ loaderData }: Route.ComponentProps) {
-  let { user } = useUserState();
+  let { user } = useUserStore();
   const book = loaderData;
   const navigate = useNavigate();
 

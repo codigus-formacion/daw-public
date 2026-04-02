@@ -3,7 +3,7 @@ import type { Route } from "./+types/book-list";
 import { getBooks } from "~/services/books-service";
 import type BookDTO from "~/dtos/BookDTO";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
-import { useUserState } from "~/stores/user-store";
+import { useUserStore } from "~/stores/user-store";
 
 export async function clientLoader({}: Route.ClientLoaderArgs) {
   return await getBooks();
@@ -11,7 +11,7 @@ export async function clientLoader({}: Route.ClientLoaderArgs) {
 
 export default function BooksList({ loaderData }: Route.ComponentProps) {
   const books = loaderData;
-  let { user } = useUserState();
+  let { user } = useUserStore();
   const navigate = useNavigate();
 
   return (

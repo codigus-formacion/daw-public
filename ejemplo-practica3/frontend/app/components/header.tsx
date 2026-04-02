@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Form, Nav, Navbar, Modal } from "react-bootstrap";
 import { useActionState, useEffect, useState } from "react";
-import { useUserState } from "~/stores/user-store";
+import { useUserStore } from "~/stores/user-store";
 
 export default function Header() {
   const [isErrorLoginDialogOpen, setErrorLoginDialogOpen] = useState(false);
@@ -16,18 +16,15 @@ export default function Header() {
   }
 
   let { user, loginError, loadLoggedUser, loginUser, logoutUser } =
-    useUserState();
+    useUserStore();
 
-  async function loginUserAction(
-    _prevState: void | null,
-    formData: FormData,
-  ) {
+  async function loginUserAction(_prevState: void | null, formData: FormData) {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
     await loginUser(username, password);
 
-    const error = useUserState.getState().loginError;
+    const error = useUserStore.getState().loginError;
 
     if (error) {
       handleShowErrorLoginDialog();
