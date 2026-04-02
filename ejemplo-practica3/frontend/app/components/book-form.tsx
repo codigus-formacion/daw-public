@@ -6,7 +6,7 @@ interface BookFormProps {
   book?: Partial<BookDTO>;
   shops?: ShopBasicDTO[];
   actionState: [
-    { success?: boolean; error?: string | null } | null,
+    { success: boolean; error: string | null } | null,
     (formData: FormData) => void,
     boolean,
   ];

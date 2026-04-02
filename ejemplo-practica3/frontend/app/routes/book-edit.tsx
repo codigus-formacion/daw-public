@@ -21,7 +21,7 @@ export default function BookEdit({ loaderData }: Route.ComponentProps) {
   const navigate = useNavigate();
 
   async function saveBookAction(
-    prevState: { success?: boolean; error?: string | null } | null,
+    prevState: { success: boolean; error: string | null } | null,
     formData: FormData,
   ) {
     const id = formData.get("id") as string;

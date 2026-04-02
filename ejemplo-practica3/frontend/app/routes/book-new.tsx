@@ -16,9 +16,8 @@ export default function BookNew({ loaderData }: Route.ComponentProps) {
 
   async function saveBookAction(
     prevState: {
-      success?: boolean;
-      error?: string | null;
-      bookId?: number;
+      success: boolean;
+      error: string | null;
     } | null,
     formData: FormData,
   ) {
@@ -35,7 +34,7 @@ export default function BookNew({ loaderData }: Route.ComponentProps) {
       }
 
       navigate(`/book/${newBook.id}`);
-      return { success: true, error: null, bookId: newBook.id };
+      return { success: true, error: null };
     } catch (error) {
       console.error(error);
       return {
