@@ -12,7 +12,6 @@ export async function clientLoader({}: Route.ClientLoaderArgs) {
 export default function BooksList({ loaderData }: Route.ComponentProps) {
   const books = loaderData;
   let { user } = useUserStore();
-  const navigate = useNavigate();
 
   return (
     <Container className="mt-4 mb-5">

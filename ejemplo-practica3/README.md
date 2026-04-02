@@ -2,7 +2,7 @@
 
 Este ejemplo incluye algunas de las funcionalidades requeridas en la **Práctica 3** del proyecto. Se trata de una página web desarrollada con **React y React Router**, que consume una **API REST** implementada en la **Práctica 2**.
 
-Además, en esta implementación se ha utilizado **Zustand** para la gestión de estado global (usuario/sesión) y `clientLoader` en las rutas junto con un **spinner global** para mostrar estados de carga de forma consistente en toda la aplicación.
+Además, en esta implementación se ha utilizado **Zustand** para la gestión de los usuarios conectados en la aplicación y `clientLoader` en las rutas junto con un **spinner global** para mostrar estados de carga de forma consistente en toda la aplicación.
 
 ---
 
@@ -44,67 +44,36 @@ Una vez que en la consola aparezca que el servidor está listo, podemos acceder 
 
 * 🔗 `http://localhost:5173/`
 
-El servidor de desarrollo evita problemas de CORS usando un proxy de Vite configurado en [frontend/vite.config.ts](frontend/vite.config.ts).
+El servidor de desarrollo evita problemas de CORS usando un proxy de Vite configurado en [frontend/vite.config.ts](frontend/vite.config.ts). Es importante indicar en el proxy `secure: false` ya que el backend utiliza un certificado SSL.
 
-## Diagrama de elementos
+## Compilación para producción
 
-```mermaid
-flowchart LR
-  H[Home]
+Para generar los archivos estáticos que se desplegarán en el backend:
 
-  subgraph R[Routes]
-    direction LR
-    L[BookList]
-    D[BookDetail]
-    E[BookEdit]
-    N[BookNew]
-    NF[NotFound]
-  end
-
-  subgraph C[Components]
-    F[BookForm]
-    HD[Header]
-  end
-
-  subgraph S[Services]
-    BS[BooksService]
-    SS[ShopsService]
-    LS[LoginService]
-  end
-
-  ST[UserStore]
-
-  H --> R
-  R --> C
-  R --> S
-  C --> S
-  S --> ST
-
-  L --> D
-  D --> L
-  D --> E
-  L --> N
-  N --> D
-  E --> D
-
-  classDef home fill:#b8e0d2,stroke:#2f7a63,stroke-width:1px,color:#111827,font-size:22px
-  classDef route fill:#c7d0db,stroke:#4b5563,stroke-width:1px,color:#111827,font-size:22px
-  classDef component fill:#e5d4ef,stroke:#7c3aed,stroke-width:1px,color:#111827,font-size:22px
-  classDef service fill:#93c5fd,stroke:#2563eb,stroke-width:1px,color:#111827,font-size:22px
-  classDef store fill:#ecd98b,stroke:#8b7a2f,stroke-width:1px,color:#111827,font-size:22px
-
-  class H home
-  class D,L,N,E,NF route
-  class F,HD component
-  class BS,SS,LS service
-  class ST store
-
-  style R fill:#f3f4f6,stroke:#d1d5db,color:#111827
-  style C fill:#f3f4f6,stroke:#d1d5db,color:#111827
-  style S fill:#f3f4f6,stroke:#d1d5db,color:#111827
-  linkStyle default stroke:#111111,stroke-width:1.5px
+```bash
+$ cd frontend
+$ npm run build
 ```
+
+Los archivos generados se encuentran en la carpeta `build/client`.
 
 ## Distribución con el backend
 
-Para desplegar correctamente la **Práctica 3**, es necesario **compilar** la aplicación React y copiar los archivos generados en la carpeta de archivos estáticos del backend.
+Para desplegar correctamente la **Práctica 3**, es necesario **compilar** la aplicación React y copiar los archivos generados en la carpeta de archivos estáticos del backend:
+
+1. Compila el frontend: `npm run build`
+2. Copia el contenido de `frontend/build/client` a la carpeta de recursos estáticos del backend `backend/src/main/resources/static`.
+
+## Diagrama de elementos
+
+![Diagrama de elementos](./elements-diagram.svg)
+
+### Leyenda del diagrama
+
+- **Rutas** (cajas grises): endpoints de la aplicación.
+- **Componentes** (cajas moradas): componentes React, tanto páginas como auxiliares.
+- **Stores** (cajas rojas): estado global de la aplicación.
+- **Services** (cajas azules): servicios que consume la aplicación (comunicación con la API).
+- **Flechas sólidas moradas**: navegación entre componentes.
+- **Flechas sólidas amarillas**: componente usa store.
+- **Flechas punteadas azules**: componente o store usa service.
