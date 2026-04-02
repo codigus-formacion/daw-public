@@ -2,6 +2,8 @@
 
 Este ejemplo incluye algunas de las funcionalidades requeridas en la **Práctica 3** del proyecto. Se trata de una página web desarrollada con **React y React Router**, que consume una **API REST** implementada en la **Práctica 2**.
 
+Además, en esta implementación se ha utilizado **Zustand** para la gestión de estado global (usuario/sesión) y `clientLoader` en las rutas junto con un **spinner global** para mostrar estados de carga de forma consistente en toda la aplicación.
+
 ---
 
 ## **Ejecución del backend**
