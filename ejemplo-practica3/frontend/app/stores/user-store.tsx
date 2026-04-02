@@ -7,7 +7,7 @@ interface UserState {
   user: UserDTO | null;
   loginError: string | null;
   loadLoggedUser: () => Promise<void>;
-  loginUser: (username: string, password: string) => Promise<string | null>;
+  loginUser: (username: string, password: string) => Promise<void>;
   logoutUser: () => Promise<void>;
 }
 
@@ -38,12 +38,10 @@ export const useUserState = create<UserState>((set, get) => ({
     try {
       await logIn(username, password);
       await get().loadLoggedUser();
-      return null;
     } catch (error) {
       console.log(error);
       const message = "Incorrect username or password. Please try again.";
       set({ loginError: message });
-      return message;
     }
   },
 

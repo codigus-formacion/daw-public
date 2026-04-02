@@ -15,29 +15,28 @@ export default function Header() {
     setErrorLoginDialogOpen(false);
   }
 
-  let { user, loadLoggedUser, loginUser, logoutUser } = useUserState();
+  let { user, loginError, loadLoggedUser, loginUser, logoutUser } = useUserState();
 
   async function loginUserAction(
     prevState: { success: boolean; error: string | null },
     formData: FormData,
-  ) {
+  ) {    
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-    const error = await loginUser(username, password);
+    await loginUser(username, password);
 
+    const error = useUserState.getState().loginError;
     if (error) {
       handleShowErrorLoginDialog();
     }
-
-    return { success: !error, error };
   }
 
   const [state, loginFormAction, isPending] = useActionState(loginUserAction, {
     success: false,
     error: null,
   });
-
+  
   async function logoutUserAction() {
     await logoutUser();
   }
@@ -113,7 +112,7 @@ export default function Header() {
           <Modal.Title>Login Error</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{state.error}</p>
+          <p>{loginError}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseErrorLoginDialog}>
