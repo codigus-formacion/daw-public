@@ -15,28 +15,27 @@ export default function Header() {
     setErrorLoginDialogOpen(false);
   }
 
-  let { user, loginError, loadLoggedUser, loginUser, logoutUser } = useUserState();
+  let { user, loginError, loadLoggedUser, loginUser, logoutUser } =
+    useUserState();
 
   async function loginUserAction(
-    prevState: { success: boolean; error: string | null },
+    _prevState: void | null,
     formData: FormData,
-  ) {    
+  ) {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
     await loginUser(username, password);
 
     const error = useUserState.getState().loginError;
+
     if (error) {
       handleShowErrorLoginDialog();
     }
   }
 
-  const [state, loginFormAction, isPending] = useActionState(loginUserAction, {
-    success: false,
-    error: null,
-  });
-  
+  const [, loginFormAction, isPending] = useActionState(loginUserAction, null);
+
   async function logoutUserAction() {
     await logoutUser();
   }
