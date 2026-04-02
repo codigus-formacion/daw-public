@@ -44,7 +44,7 @@ Una vez que en la consola aparezca que el servidor está listo, podemos acceder 
 
 * 🔗 `http://localhost:5173/`
 
-El servidor de desarrollo incluye configuración para evitar problemas de CORS.
+El servidor de desarrollo evita problemas de CORS usando un proxy de Vite configurado en [frontend/vite.config.ts](frontend/vite.config.ts).
 
 ## Diagrama de elementos
 
